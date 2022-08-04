@@ -3,7 +3,7 @@
         <v-container>
             <v-row justify="center">
                 <v-col cols="auto">
-                    About
+                    Contact
                 </v-col>
             </v-row>
         </v-container>
@@ -13,7 +13,7 @@
 <script>
 
   export default {
-    name: 'AboutView',
+    name: 'ContactView',
 
     components: { },
   }
