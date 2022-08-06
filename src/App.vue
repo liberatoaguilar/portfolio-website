@@ -128,6 +128,23 @@ export default {
   methods: {
   },
   mounted() {
+    switch(this.$route.name) {
+        case 'resume':
+            this.page = 0;
+            break;
+        case 'about':
+            this.page = 1;
+            break;
+        case '/':
+            this.page = 2;
+            break;
+        case 'projects':
+            this.page = 3;
+            break;
+        case 'contact':
+            this.page = 4;
+            break;
+    }
   }
 };
 </script>

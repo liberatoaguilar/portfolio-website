@@ -53,7 +53,7 @@
 .doShow {                  
     opacity: 1;            
     animation-name: show;  
-    animation-duration: 2s;
+    animation-duration: 1s;
 }                          
 
 
@@ -243,7 +243,7 @@ export default {
             description: "",
             pictureURL: "",
             projects: [],
-            beforeLoadClass: "dontShow",
+            beforeLoadClass: "doShow",
             admin: false,
             snackbar: false,
         }
@@ -296,22 +296,36 @@ export default {
     },
 
     async mounted() {
-        let homeInfo = await getPageInfo();
+        if (localStorage.getItem("pageInfo")) {
+            let homeInfo = JSON.parse(localStorage.getItem("pageInfo"));
+            this.title = homeInfo.homeTitle;
+            this.description = homeInfo.homeDescription;
+            this.pictureURL = homeInfo.homePictureURL;
 
-        let img = document.createElement("link");
-        img.href = homeInfo[0].homePictureURL;
-        img.rel = "prefetch";                    
-        img.as = "image";                        
-        document.head.appendChild(img);          
+            let img = document.createElement("link");
+            img.href = homeInfo.homePictureURL;
+            img.rel = "preload";                    
+            img.as = "image";                        
+            document.head.appendChild(img);          
+        } else {
+            let homeInfo = await getPageInfo();
 
-        this.title = homeInfo[0].homeTitle;
-        this.description = homeInfo[0].homeDescription;
-        this.pictureURL = homeInfo[0].homePictureURL;
+            this.title = homeInfo[0].homeTitle;
+            this.description = homeInfo[0].homeDescription;
+            this.pictureURL = homeInfo[0].homePictureURL;
+
+            localStorage.setItem("pageInfo",JSON.stringify(homeInfo[0]));
+        }
+
+        if (localStorage.getItem("socials")) {
+            this.socials = JSON.parse(localStorage.getItem("socials"));
+        } else {
+            let socialInfo = await getSocials();
+            this.socials = socialInfo;
+            localStorage.setItem("socials",JSON.stringify(socialInfo));
+        }
 
         this.projects = await getFeaturedProjects();
-
-        let socialInfo = await getSocials();
-        this.socials = socialInfo;
 
         let slide = document.getElementById("slide");
         let px = slide.clientWidth*5;
@@ -329,6 +343,18 @@ export default {
             }                                              
         `;
         document.body.appendChild(anim);
+
+        let homeInfo = await getPageInfo();
+        localStorage.setItem("pageInfo",JSON.stringify(homeInfo[0]));
+
+        let socialInfo = await getSocials();
+        localStorage.setItem("socials",JSON.stringify(socialInfo));
+
+        let resumeImg = document.createElement("link");
+        resumeImg.href = homeInfo[0].resumePictureURL;
+        resumeImg.rel = "prefetch";                    
+        resumeImg.as = "image";                        
+        document.head.appendChild(resumeImg);          
     }
 }
 /* eslint-disable no-unused-vars */

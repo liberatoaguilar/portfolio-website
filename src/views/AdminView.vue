@@ -8,7 +8,7 @@
 .doShow {
     opacity: 1;
     animation-name: show;
-    animation-duration: 2s;
+    animation-duration: 1s;
 }
 
 </style>
