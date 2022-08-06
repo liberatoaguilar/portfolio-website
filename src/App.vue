@@ -80,12 +80,16 @@
                             >CONTACT</v-btn>
                         </v-slide-item>
                     </v-col>
+                    <v-slide-item
+                        style="opacity: 0"
+                    >
+                    </v-slide-item>
                 </v-slide-group>
             </v-row>
         </v-container>
     </v-app-bar>
     <v-main>
-      <router-view/>
+      <router-view @changeRoute="page = 5"></router-view>
     </v-main>
   </v-app>
 </template>
@@ -103,19 +107,19 @@ export default {
         handler() {
             switch (this.page) {
                 case 0:
-                    this.$router.push("resume");
+                    this.$router.replace("/resume");
                     break;
                 case 1:
-                    this.$router.push("about");
+                    this.$router.replace("/about");
                     break;
                 case 2:
                     this.$router.replace("/");
                     break;
                 case 3:
-                    this.$router.push("projects");
+                    this.$router.replace("/projects");
                     break;
                 case 4:
-                    this.$router.push("contact");
+                    this.$router.replace("/contact");
                     break;
             }
         },

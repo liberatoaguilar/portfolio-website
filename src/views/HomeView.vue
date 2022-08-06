@@ -6,8 +6,16 @@
     width: 73%;
     transform: translateX(-2px);
     position: absolute;
-    overflow: clip;
     pointer-events: none;
+}
+
+.adminButton {
+    opacity: 0;
+}
+
+.adminButton:hover {
+    opacity: 100;
+    transition: .5s ease;
 }
 
 .image {
@@ -114,7 +122,7 @@
                                 >
                                     <v-img
                                         eager
-                                        @load="imgLoaded"
+                                        @loadstart="imgLoaded"
                                         :src="pictureURL"
                                     ></v-img>
                                 </v-avatar>
@@ -139,25 +147,105 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-footer app padless color="#121212">
+            <v-container fluid>
+                <v-row justify="center" :class="beforeLoadClass">
+                    <v-spacer/>
+                    <v-col cols="auto" v-if="!$vuetify.breakpoint.smAndDown">
+                        <v-btn
+                            text
+                            class="adminButton"
+                            @click.prevent="adminClick"
+                        >
+                        ADMIN
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-footer>
+        <v-dialog
+            v-model="admin"
+            max-width="500px"
+        >
+            <v-card> 
+                <v-card-title class="adminButton">
+                    Admin
+                </v-card-title>
+                <v-card-text>
+                    <v-form ref="adminEnterForm" @submit.prevent="signIn">
+                        <v-container>
+                            <v-row dense>
+                                <v-col>
+                                    <v-text-field
+                                        label="Username"
+                                        v-model="username"
+                                        outlined
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col>
+                                    <v-text-field
+                                        label="Password"
+                                        type="password"
+                                        v-model="password"
+                                        outlined
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row dense justify="end">
+                                <v-col cols="auto">
+                                    <v-btn
+                                        text
+                                        @click="signIn"
+                                        type="submit"
+                                    >
+                                    Sign In
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-form>
+                </v-card-text>
+            </v-card> 
+        </v-dialog>
+        <v-snackbar
+            color="error"
+            v-model="snackbar"
+            timeout="2000"
+            top
+            right
+            max-width="168"
+            min-width="168"
+        >
+            <b>Invalid Credentials</b>
+        </v-snackbar>
     </section>
 </template>
 
 <script>
 /* eslint-disable no-unused-vars */
-import { getHomeInfo, getSocials, getFeaturedProjects } from '../firebase.js';
+import { getPageInfo, getSocials, getFeaturedProjects } from '../firebase.js';
 import projectView from '../components/projectView.vue';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 
 export default {
     name: 'homeView',
     components: { projectView },
     data() {
         return {
+            password: "",
+            username: "",
             socials: [],
             title: "",
             description: "",
             pictureURL: "",
             projects: [],
             beforeLoadClass: "dontShow",
+            admin: false,
+            snackbar: false,
         }
     },
 
@@ -175,6 +263,30 @@ export default {
     },
 
     methods: {
+        adminClick() {
+            const auth = getAuth();
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    this.$router.replace("/admin/"+0);
+                } else {
+                    this.admin = true;
+                }
+            });
+        },
+        async signIn() {
+            const auth = getAuth();
+            signInWithEmailAndPassword(auth, this.username, this.password)
+                .then((userCred) => {
+                    userCred.user.getIdToken(true)
+                        .then((idToken) => {
+                            this.$router.replace("/admin/"+idToken);
+                            return;
+                    });
+                })
+                .catch(() => { 
+                    this.snackbar = true;
+                });
+        },
         open(link) {
             window.open(link,'_blank');
         },
@@ -184,17 +296,17 @@ export default {
     },
 
     async mounted() {
-        let homeInfo = await getHomeInfo();
+        let homeInfo = await getPageInfo();
 
         let img = document.createElement("link");
-        img.href = homeInfo[0].pictureURL;
+        img.href = homeInfo[0].homePictureURL;
         img.rel = "prefetch";                    
         img.as = "image";                        
         document.head.appendChild(img);          
 
-        this.title = homeInfo[0].title;
-        this.description = homeInfo[0].description;
-        this.pictureURL = homeInfo[0].pictureURL;
+        this.title = homeInfo[0].homeTitle;
+        this.description = homeInfo[0].homeDescription;
+        this.pictureURL = homeInfo[0].homePictureURL;
 
         this.projects = await getFeaturedProjects();
 
