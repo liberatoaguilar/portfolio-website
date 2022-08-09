@@ -93,7 +93,9 @@ export default {
             if (this.$refs.emailForm.validate()) {
                this.snackbarSuccess = true;
 
-                
+               window.location.href = `
+                    mailto:${this.email}?subject=<${this.enterEmail}> ${this.enterSubject}&body=${this.enterMessage}
+               `; 
 
                this.enterEmail = "";
                this.enterSubject = "";

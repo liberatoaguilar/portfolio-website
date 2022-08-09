@@ -327,6 +327,9 @@ export default {
 
         this.projects = await getFeaturedProjects();
 
+        let socialInfo = await getSocials();
+        localStorage.setItem("socials",JSON.stringify(socialInfo));
+
         let slide = document.getElementById("slide");
         let px = slide.clientWidth*5;
         let anim = document.createElement("style");
@@ -346,9 +349,6 @@ export default {
 
         let homeInfo = await getPageInfo();
         localStorage.setItem("pageInfo",JSON.stringify(homeInfo[0]));
-
-        let socialInfo = await getSocials();
-        localStorage.setItem("socials",JSON.stringify(socialInfo));
 
         let resumeImg = document.createElement("link");
         resumeImg.href = homeInfo[0].resumePictureURL;
