@@ -465,7 +465,6 @@
                                 </v-col>
                                 <v-col cols="6">
                                     <v-text-field
-                                        :rules="[() => !!editProject.linkCode || 'Required Field']"
                                         label="Code URL"
                                         v-model="editProject.linkCode"
                                         outlined
@@ -483,7 +482,6 @@
                                 </v-col>
                                 <v-col cols="6">
                                     <v-text-field
-                                        :rules="[() => !!editProject.linkProject || 'Required Field']"
                                         label="Project URL"
                                         v-model="editProject.linkProject"
                                         outlined

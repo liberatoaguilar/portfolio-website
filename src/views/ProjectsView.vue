@@ -62,7 +62,7 @@
                             :page.sync="page"
                             :footer-props="{
                                 itemsPerPageText: $vuetify.breakpoint.smAndDown ? 'Show' : 'Projects per page',
-                                itemsPerPageOptions: $vuetify.breakpoint.mdAndDown ?  [12,-1] : [25, 50, -1],
+                                itemsPerPageOptions: $vuetify.breakpoint.mdAndDown ?  [12,24,-1] : [25, 50, -1],
                                 showCurrentPage: true,
                                 showFirstLastPage: $vuetify.breakpoint.smAndDown ? false : true,
                                 disableItemsPerPage: $vuetify.breakpoint.smAndDown,
