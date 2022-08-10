@@ -20,6 +20,17 @@
     animation-duration: 1s;
 }
 
+
+.largeText {
+    font-size: 16pt;
+}
+
+.smallText {
+    margin-right: 10%;
+    margin-left: 10%;
+    font-size: 12pt;
+
+}
 </style>
 <template>
     <section>
@@ -30,9 +41,11 @@
                     <h1 style="font-size: 23pt">{{ title }}</h1>
                 </v-col>
                 <v-col cols="auto" md="4" order="2" order-md="1">
-                    <h1 style="padding-bottom: 10px; font-size: 23pt"
+                    <h1 style="padding-bottom: 10px; font-size: 23pt; padding-left: 10%"
                     v-if="!$vuetify.breakpoint.smAndDown">{{ title }}</h1>
-                    <p style="font-size: 16pt" v-html="description"></p>
+                    <p v-html="description" 
+                        :class="$vuetify.breakpoint.smAndDown ? 'smallText' : 'largeText'"
+                    ></p>
                 </v-col>
                 <v-col cols="1" order-md="2" v-if="!$vuetify.breakpoint.smAndDown">
                 </v-col>

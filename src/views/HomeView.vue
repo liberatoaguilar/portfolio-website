@@ -74,7 +74,7 @@
     <section>
         <v-container fluid>
             <v-row justify="center" :class="beforeLoadClass">
-                <v-col cols="12">
+                <v-col cols="12" style="padding-bottom: 0; margin-bottom: 0">
                     <v-container style="padding-left: 7%; padding-top: 2%; padding-right: 7%" fluid
                         :class="$vuetify.breakpoint.smAndDown ? 'smallPadding' : 'largePadding'"
                     >
@@ -147,7 +147,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-footer app padless color="#121212">
+        <v-footer app color="#121212">
             <v-container fluid>
                 <v-row justify="center" :class="beforeLoadClass">
                     <v-spacer/>
