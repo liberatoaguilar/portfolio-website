@@ -56,6 +56,8 @@
             <v-row justify="center" class="doShow" v-if="showProjects.length > 0" no-gutters >
                     <v-col cols="12" style="padding: 0; margin: 0">
                         <v-data-iterator
+                            sort-by="date"
+                            :sort-desc="true"
                             :items-per-page="$vuetify.breakpoint.mdAndDown ? 12 : 25"
                             :items="showProjects"
                             style="padding: 0; margin: 0"
