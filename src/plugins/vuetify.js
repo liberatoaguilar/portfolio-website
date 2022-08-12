@@ -11,9 +11,9 @@ export default new Vuetify({
             dark: {
                 primary: '#1976D2',
                 secondary: '#272727',
-                notSelected: '#626262',
+                notSelected: '#959595',
                 background: '#121212',
-                imgBorder: '#626262',
+                imgBorder: '#959595',
             },
             light: {
                 background: '#ffffff',
