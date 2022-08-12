@@ -1,6 +1,6 @@
 <style>
 .borderImg {
-    border: 1px solid grey;
+    border: 1px solid var(--v-imgBorder-base);
     border-radius: 5px;
     padding: 50px;
 }

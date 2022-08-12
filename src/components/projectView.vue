@@ -101,7 +101,7 @@
                                                    contain
                                                    @click="zoomedPic = true"
                                                    style="cursor: pointer"
-                                                   max-width="400px"
+                                                   max-width="380px"
                                                    :src="project.pictures[currentPic]"
                                                 >
                                                 </v-img>

@@ -1,6 +1,8 @@
 <style>
 #gradient {
-    background-image: linear-gradient(to left, rgba(18,18,18,1) 0%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0) 80%,  rgba(18,18,18,1) 100%);                  
+    background-image: linear-gradient(to left, var(--v-background-base) 0%, rgba(0, 0, 0, 0)
+    20%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0) 80%,
+    var(--v-background-base) 100%);                  
     background-size: cover;
     z-index: 11;
     width: 73%;
@@ -19,13 +21,13 @@
 }
 
 .image {
-    border: 2px solid grey;
+    border: 1px solid var(--v-imgBorder-base);
     border-radius: 15px;
     transition: .5s ease;
 }
 
 .image:hover {
-    border: 5px solid grey;
+    border: 1px solid var(--v-imgBorder-base);
 }
 
 .largeText {
@@ -85,7 +87,7 @@
                                 style="padding-bottom: 0; padding-left: 0"
                             >
                                 <v-list
-                                    color="#121212"
+                                    color="background"
                                 >
                                     <v-list-item                                                         
                                         v-for="(item, i) in socials"                                     
@@ -98,7 +100,7 @@
                                         </v-list-item-content>                                           
                                         <v-list-item-icon>                     
                                             <v-icon v-text="item.icon"
-                                                color="grey"
+                                                color="notSelected"
                                             ></v-icon>                         
                                         </v-list-item-icon>                                              
                                     </v-list-item>                                                       
@@ -111,7 +113,7 @@
                                 :style="$vuetify.breakpoint.smAndDown ? 'padding-top: 0' : 'padding-top: 32px'"
                             >
                                 <h1 style="margin-bottom: 10px">{{ this.title }}</h1>
-                                <p>{{ this.description }}</p>
+                                <p class="text-justify">{{ this.description }}</p>
                             </v-col>
                             <v-col cols="6" md="2" order="2" order-md="3"
                                 style="padding-bottom: 0; padding-left: 0"
@@ -147,7 +149,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-footer app color="#121212">
+        <v-footer app color="background">
             <v-container fluid>
                 <v-row justify="center" :class="beforeLoadClass">
                     <v-spacer/>
@@ -331,7 +333,7 @@ export default {
         localStorage.setItem("socials",JSON.stringify(socialInfo));
 
         let slide = document.getElementById("slide");
-        let px = slide.clientWidth*5;
+        let px = slide.clientWidth*this.projects.length;
         let anim = document.createElement("style");
         anim.textContent = `
             @keyframes slide {                             

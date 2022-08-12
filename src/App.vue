@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-    <v-app-bar app :height="$vuetify.breakpoint.smAndDown ? '160%' : '200%'" dense>
+  <v-app :style="'background-color: '+$vuetify.theme.themes[theme].background">
+    <v-app-bar app :height="$vuetify.breakpoint.smAndDown ? '160%' : '200%'" dense color="secondary">
         <v-container style="padding: 0">
             <v-row justify="center">
                 <v-col cols="auto">
@@ -20,7 +20,7 @@
                         <v-slide-item v-slot="{ active, toggle }">
                             <v-btn
                                 :outlined="!active"
-                                :color="active ? 'primary' : 'grey'"
+                                :color="active ? 'primary' : 'notSelected'"
                                 style="margin: 10px"
                                 @click="toggle"
                                 :large="!$vuetify.breakpoint.smAndDown"
@@ -33,7 +33,7 @@
                         <v-slide-item v-slot="{ active, toggle }">
                             <v-btn
                                 :outlined="!active"
-                                :color="active ? 'primary' : 'grey'"
+                                :color="active ? 'primary' : 'notSelected'"
                                 style="margin: 10px"
                                 @click="toggle"
                                 :large="!$vuetify.breakpoint.smAndDown"
@@ -46,7 +46,7 @@
                         <v-slide-item v-slot="{ active, toggle }">
                             <v-btn
                                 :outlined="!active"
-                                :color="active ? 'primary' : 'grey'"
+                                :color="active ? 'primary' : 'notSelected'"
                                 style="margin: 10px"
                                 @click="toggle"
                                 :large="!$vuetify.breakpoint.smAndDown"
@@ -59,7 +59,7 @@
                         <v-slide-item v-slot="{ active, toggle }">
                             <v-btn
                                 :outlined="!active"
-                                :color="active ? 'primary' : 'grey'"
+                                :color="active ? 'primary' : 'notSelected'"
                                 style="margin: 10px"
                                 @click="toggle"
                                 :large="!$vuetify.breakpoint.smAndDown"
@@ -72,7 +72,7 @@
                         <v-slide-item v-slot="{ active, toggle }">
                             <v-btn
                                 :outlined="!active"
-                                :color="active ? 'primary' : 'grey'"
+                                :color="active ? 'primary' : 'notSelected'"
                                 style="margin: 10px"
                                 @click="toggle"
                                 :large="!$vuetify.breakpoint.smAndDown"
@@ -124,6 +124,11 @@ export default {
             }
         },
     },
+  },
+  computed: {
+    theme() {
+        return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+    }
   },
   methods: {
   },

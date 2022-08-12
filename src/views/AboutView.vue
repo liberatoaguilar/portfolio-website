@@ -1,6 +1,6 @@
 <style>
 .borderImg {
-    border: 1px solid grey;
+    border: 1px solid var(--v-imgBorder-base);
     border-radius: 5px;
     padding: 50px;
 }
@@ -44,7 +44,8 @@
                     <h1 style="padding-bottom: 10px; font-size: 23pt; padding-left: 10%"
                     v-if="!$vuetify.breakpoint.smAndDown">{{ title }}</h1>
                     <p v-html="description" 
-                        :class="$vuetify.breakpoint.smAndDown ? 'smallText' : 'largeText'"
+                        :class="$vuetify.breakpoint.smAndDown ? 'smallText text-justify'
+                        : 'largeText text-justify'"
                     ></p>
                 </v-col>
                 <v-col cols="1" order-md="2" v-if="!$vuetify.breakpoint.smAndDown">

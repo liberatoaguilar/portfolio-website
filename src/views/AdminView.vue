@@ -1,6 +1,6 @@
 <style>
 .borderImg {
-    border: 1px solid grey;
+    border: 1px solid var(--v-imgBorder-base);
     border-radius: 5px;
     padding: 50px;
 }
@@ -139,7 +139,7 @@
                 </v-row>
             </template>
         </v-container>
-        <v-footer app padless color="#121212" v-if="loggedIn">
+        <v-footer app padless color="background" v-if="loggedIn">
             <v-container fluid>
                 <v-row justify="center">
                     <v-col cols="auto">
@@ -1458,7 +1458,7 @@ export default {
             if (!found) {
                 this.featured.push(Number(projectID));
             }
-            this.warningSnackbar = true;
+            //this.warningSnackbar = true;
             this.featureChanged = true;
         },
         newItem() {
