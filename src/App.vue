@@ -158,7 +158,7 @@ export default {
             this.page = 4;
             break;
     }
-    if (localStorage.getItem("themes")) {
+    if (JSON.parse(localStorage.getItem("themes")).length) {
         let themes = JSON.parse(localStorage.getItem("themes"));
         this.$vuetify.theme.dark = themes[0].chosen;
         let keys = Object.keys(themes[0]);
