@@ -18,7 +18,7 @@
                             <v-btn
                                 :large="!$vuetify.breakpoint.smAndDown"
                                 :small="$vuetify.breakpoint.smAndDown"
-                                :color="selectedPage != 0 ? 'notSelected' : 'primary'"
+                                :color="selectedPage != 0 ? 'notSelected' : 'projectsBtn'"
                                 @click="selectPage(0)"
                                 style="margin: 10px"
                                 outlined
@@ -32,7 +32,7 @@
                             <v-btn
                                 :large="!$vuetify.breakpoint.smAndDown"
                                 :small="$vuetify.breakpoint.smAndDown"
-                                :color="selectedPage != i+1 ? 'notSelected' : 'primary'"
+                                :color="selectedPage != i+1 ? 'notSelected' : 'projectsBtn'"
                                 outlined
                                 @click="selectPage(i+1)"
                                 style="margin: 10px"
