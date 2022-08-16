@@ -10,7 +10,7 @@
         <v-container class="doShow">
             <v-form ref="emailForm">
                 <v-row justify="center" dense style="padding-top: 20px; padding-bottom: 10px">
-                    <v-col cols="10" md="4">
+                    <v-col cols="10" md="4" class="textColor--text">
                         <h1 class="text-center">{{ title }}</h1>
                     </v-col>
                 </v-row>

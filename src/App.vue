@@ -1,9 +1,10 @@
 <template>
   <v-app :style="'background-color: '+$vuetify.theme.themes[theme].background">
-    <v-app-bar app :height="$vuetify.breakpoint.smAndDown ? '160%' : '200%'" dense color="secondary">
+    <v-app-bar app :height="$vuetify.breakpoint.smAndDown ? '160%' : '200%'" dense color="secondary"
+    style="transform: translateY(-1px);">
         <v-container style="padding: 0">
             <v-row justify="center">
-                <v-col cols="auto">
+                <v-col cols="auto" class="title--text">
                     <h1 :class="$vuetify.breakpoint.smAndDown ? 'text-h4 text-center' : 'text-h2 text-center'"
                     >Liberato Aguilar</h1>
                 </v-col>
@@ -21,6 +22,7 @@
                             <v-btn
                                 :outlined="!active"
                                 :color="active ? 'primary' : 'notSelected'"
+                                :class="active ? 'btnText--text' : ''"
                                 style="margin: 10px"
                                 @click="toggle"
                                 :large="!$vuetify.breakpoint.smAndDown"
@@ -35,6 +37,7 @@
                                 :outlined="!active"
                                 :color="active ? 'primary' : 'notSelected'"
                                 style="margin: 10px"
+                                :class="active ? 'btnText--text' : ''"
                                 @click="toggle"
                                 :large="!$vuetify.breakpoint.smAndDown"
                                 :small="$vuetify.breakpoint.smAndDown"
@@ -48,6 +51,7 @@
                                 :outlined="!active"
                                 :color="active ? 'primary' : 'notSelected'"
                                 style="margin: 10px"
+                                :class="active ? 'btnText--text' : ''"
                                 @click="toggle"
                                 :large="!$vuetify.breakpoint.smAndDown"
                                 :small="$vuetify.breakpoint.smAndDown"
@@ -61,6 +65,7 @@
                                 :outlined="!active"
                                 :color="active ? 'primary' : 'notSelected'"
                                 style="margin: 10px"
+                                :class="active ? 'btnText--text' : ''"
                                 @click="toggle"
                                 :large="!$vuetify.breakpoint.smAndDown"
                                 :small="$vuetify.breakpoint.smAndDown"
@@ -74,6 +79,7 @@
                                 :outlined="!active"
                                 :color="active ? 'primary' : 'notSelected'"
                                 style="margin: 10px"
+                                :class="active ? 'btnText--text' : ''"
                                 @click="toggle"
                                 :large="!$vuetify.breakpoint.smAndDown"
                                 :small="$vuetify.breakpoint.smAndDown"
@@ -95,12 +101,14 @@
 </template>
 
 <script>
+import { getThemes, } from './firebase.js'
 
 export default {
   name: 'App',
 
   data: () => ({
       page: 2,
+      currentTheme: {},
   }),
   watch: {
     page: {
@@ -132,7 +140,7 @@ export default {
   },
   methods: {
   },
-  mounted() {
+  async mounted() {
     switch(this.$route.name) {
         case 'resume':
             this.page = 0;
@@ -149,6 +157,30 @@ export default {
         case 'contact':
             this.page = 4;
             break;
+    }
+    if (localStorage.getItem("themes")) {
+        let themes = JSON.parse(localStorage.getItem("themes"));
+        this.$vuetify.theme.dark = themes[0].chosen;
+        let keys = Object.keys(themes[0]);
+        for (let i = 0; i < keys.length; i++) {
+            if (keys[i] != "chosen") {
+                this.$vuetify.theme.themes.dark[keys[i]] = themes[0][keys[i]];
+                this.$vuetify.theme.themes.light[keys[i]] = themes[1][keys[i]];
+            }
+        }
+        themes = await getThemes();
+        localStorage.setItem("themes",JSON.stringify(themes));
+    } else {
+        let themes = await getThemes();
+        this.$vuetify.theme.dark = themes[0].chosen;
+        let keys = Object.keys(themes[0]);
+        for (let i = 0; i < keys.length; i++) {
+            if (keys[i] != "chosen") {
+                this.$vuetify.theme.themes.dark[keys[i]] = themes[0][keys[i]];
+                this.$vuetify.theme.themes.light[keys[i]] = themes[1][keys[i]];
+            }
+        }
+        localStorage.setItem("themes",JSON.stringify(themes));
     }
   }
 };

@@ -32,7 +32,7 @@
 
 <template>
     <section>
-        <v-card height="100%" class="cardGrow" @click="projectInfo = true">
+        <v-card height="100%" class="cardGrow " @click="projectInfo = true">
             <v-card-text class="text-center">
                 <v-container fluid style="padding: 0">
                     <v-row justify="center">
@@ -49,7 +49,7 @@
                     margin-right: 0">
                         <v-col cols="auto" :class="$vuetify.breakpoint.smAndDown ?
                         'smallFont' : 'largeFont'">
-                            <b>{{ project.name }}</b>
+                            <b class="v-cardText--text">{{ project.name }}</b>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -64,7 +64,8 @@
                 <v-container style="margin: 0; padding: 0;">
                     <v-row style="margin: 0; padding: 0" justify="start">
                         <v-col cols="auto" style="margin-bottom: 0; padding-bottom: 0">
-                            <v-card-title :style="'font-size: '+projectInfoTitle+'px; word-break: break-word'">
+                            <v-card-title :style="'font-size: '+projectInfoTitle+'px; word-break: break-word'"
+                            class="textColor--text">
                                 {{ project.name }}
                             </v-card-title>
                         </v-col>
@@ -141,7 +142,7 @@
                                 </v-container>
                             </v-col>
                             <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 4">
-                                <v-container>
+                                <v-container class="v-cardText--text">
                                     <v-row  dense :class="$vuetify.breakpoint.smAndDown ? 'smallFont' : 'wordBreak'">
                                         <v-col cols="6" style="padding-right: 20px">
                                             <b>Date: </b>
@@ -192,6 +193,7 @@
                     style="margin: 10px"
                     @click.prevent="openSource"
                     v-if="project.linkCode"
+                    class="textColor--text"
                    >
                     SOURCE
                    </v-btn> 
@@ -202,6 +204,7 @@
                     style="margin: 10px"
                     @click.prevent="openProject"
                     v-if="project.linkProject"
+                    class="textColor--text"
                    >
                     PROJECT
                    </v-btn> 

@@ -5,20 +5,6 @@ Vue.use(Vuetify);
 
 export default new Vuetify({
     theme: {
-        dark: true,
         options: { customProperties: true },
-        themes: {
-            dark: {
-                primary: '#1976D2',
-                secondary: '#272727',
-                notSelected: '#959595',
-                background: '#121212',
-                imgBorder: '#959595',
-            },
-            light: {
-                background: '#ffffff',
-                secondary: '#272727',
-            }
-        }
     }
 });

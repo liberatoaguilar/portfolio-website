@@ -208,6 +208,16 @@
                         <v-btn
                             :large="!$vuetify.breakpoint.smAndDown"
                             :small="$vuetify.breakpoint.smAndDown"
+                            text
+                            @click="theme = true"
+                        >
+                            THEME
+                        </v-btn>
+                    </v-col>
+                    <v-col cols="auto">
+                        <v-btn
+                            :large="!$vuetify.breakpoint.smAndDown"
+                            :small="$vuetify.breakpoint.smAndDown"
                             color="error"
                             text
                             @click.prevent="logOutClick"
@@ -848,6 +858,86 @@
                 </v-card-actions>
             </v-card> 
         </v-dialog>
+        <v-dialog
+            v-model="theme"
+            max-width="500px"
+            scrollable
+        >
+            <v-card> 
+                <v-card-title>
+                    Edit Theme
+                </v-card-title>
+                <v-card-text>
+                    <v-form ref="themeForm">
+                        <v-container>
+                            <v-row dense align="center">
+                                <v-col cols="auto">
+                                    <v-switch
+                                        label="Dark Theme"
+                                        v-model="themes[0].chosen"
+                                        @change="currentTheme = themes[0].chosen ?  themes[0] : themes[1]"
+                                    ></v-switch>
+                                </v-col>
+                            </v-row>
+                            <v-row dense>
+                                <v-col>
+                                    <template 
+                                        v-for="(t, i) in Object.keys(currentTheme).sort()"
+                                    >
+                                        <v-menu
+                                            v-if="t != 'chosen'"
+                                            :key="i"
+                                            :close-on-content-click="false"
+                                            :return-value="currentTheme[t]"
+                                            transition="scale-transition"
+                                            offset-y
+                                            min-width="auto"
+                                            ref="menu2"
+                                        >
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                    v-model="currentTheme[t]"
+                                                    :label="t.toUpperCase()"
+                                                    :rules="[() => !!currentTheme[t]|| 'Required Field']"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                    outlined
+                                                    :color="currentTheme[t]"
+                                                >
+                                                    <template v-slot:append>
+                                                        <v-icon
+                                                        style="border: 1px solid grey;
+                                                        border-radius: 5px; padding: 0;
+                                                        margin: 0"
+                                                        :color="currentTheme[t]">mdi-square-rounded</v-icon>
+                                                    </template>
+                                                </v-text-field>
+                                            </template>
+                                            <v-color-picker
+                                                v-model="currentTheme[t]"
+                                                mode="hexa"
+                                                hide-inputs
+                                            >
+                                            </v-color-picker>
+                                        </v-menu>
+                                    </template>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn
+                        text
+                        @click="saveTheme"
+                    >
+                    Save
+                    </v-btn>
+                </v-card-actions>
+                </v-card> 
+        </v-dialog>
     </section>
 </template>
 
@@ -855,7 +945,7 @@
 /* eslint-disable no-unused-vars */
 import { getProjects, deletePicture, addProject, deleteProjects, getProjectsBackup,
 saveProjectsBackup, saveAllProjects, getSocials, setSocial, eraseSocials, setPageInfo,
-getPageInfo } from '../firebase.js';
+getPageInfo, getThemes, setTheme } from '../firebase.js';
 import { getAuth, onAuthStateChanged, signOut, updateEmail, updatePassword } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 export default {
@@ -863,6 +953,9 @@ export default {
     components: { },
     data() {
         return {
+            theme: false,
+            themes: [],
+            currentTheme: null,
             showAddAboutPicture: true,
             validateEmail: (value) => {
                     const pattern =
@@ -888,6 +981,7 @@ export default {
             uploadingSnackbar: false,
             showAddPicture: true,
             menu: false,
+            colorPickerMenu: false,
             projects: [],
             search: "",
             nextProjectID: -1,
@@ -981,6 +1075,21 @@ export default {
     },
 
     methods: {
+        async saveTheme() {
+            this.theme = false;
+            this.snackbarSuccess = true;
+            this.$vuetify.theme.dark = this.themes[0].chosen;
+            let keys = Object.keys(this.themes[0]);
+            for (let i = 0; i < keys.length; i++) {
+                if (keys[i] != "chosen") {
+                    this.$vuetify.theme.themes.dark[keys[i]] = this.themes[0][keys[i]];
+                    this.$vuetify.theme.themes.light[keys[i]] = this.themes[1][keys[i]];
+                }
+            }
+            await setTheme(this.themes[0],"dark");
+            await setTheme(this.themes[1],"light");
+            localStorage.setItem("themes",JSON.stringify(this.themes));
+        },
         uploadClickResumePDF() {
             this.$refs.uploadPDF.click();
         },
@@ -1492,6 +1601,8 @@ export default {
                 this.socials = await getSocials();
                 let page =  await getPageInfo();
                 this.pageInfo = page[0];
+                this.themes = await getThemes();
+                this.currentTheme = this.themes[0].chosen ? this.themes[0] : this.themes[1];
             } else {
                 this.loggedIn = false;
             }

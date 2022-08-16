@@ -96,18 +96,20 @@
                                     >                                                                    
                                         <v-list-item-content
                                         >       
-                                            <b><v-list-item-title>{{ item.name }}</v-list-item-title></b>
+                                            <b
+                                                class="textColor--text"
+                                            ><v-list-item-title>{{ item.name }}</v-list-item-title></b>
                                         </v-list-item-content>                                           
                                         <v-list-item-icon>                     
                                             <v-icon v-text="item.icon"
-                                                color="notSelected"
+                                                color="icon"
                                             ></v-icon>                         
                                         </v-list-item-icon>                                              
                                     </v-list-item>                                                       
                                 </v-list>                                                                
                             </v-col>
                             <v-col cols="auto" md="6"
-                                :class="$vuetify.breakpoint.smAndDown ? 'smallText' : 'largeText'"
+                                :class="$vuetify.breakpoint.smAndDown ? 'smallText textColor--text' : 'largeText textColor--text'"
                                 order="3" 
                                 order-md="2"
                                 :style="$vuetify.breakpoint.smAndDown ? 'padding-top: 0' : 'padding-top: 32px'"

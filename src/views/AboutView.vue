@@ -37,10 +37,11 @@
         <v-container fluid style="padding-left: 10%; padding-right: 10%">
             <v-row justify="center" style="padding-top: 30px" dense align="center"
             class="doShow">
-                <v-col cols="auto" v-if="$vuetify.breakpoint.smAndDown" order="0">
+                <v-col cols="auto" v-if="$vuetify.breakpoint.smAndDown" order="0"
+                class="textColor--text">
                     <h1 style="font-size: 23pt">{{ title }}</h1>
                 </v-col>
-                <v-col cols="auto" md="4" order="2" order-md="1">
+                <v-col cols="auto" md="4" order="2" order-md="1" class="textColor--text">
                     <h1 style="padding-bottom: 10px; font-size: 23pt; padding-left: 10%"
                     v-if="!$vuetify.breakpoint.smAndDown">{{ title }}</h1>
                     <p v-html="description" 

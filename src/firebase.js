@@ -12,7 +12,7 @@ const firebaseApp = initializeApp({
 });                                                                                                                    
                                                                                                                        
 const db = getFirestore(firebaseApp);                                                                                  
-const pageCollection = collection(db, 'page');                                                                    
+const pageCollection = collection(db, 'page');                                                                    const themeCollection = collection(db,'theme');                                                                    
 const socialCollection = collection(db, 'socials');                                                                    
 const projectCollection = collection(db, 'projects');
 const projectBackupCollection = collection(db, 'projectsBackup');
@@ -32,6 +32,21 @@ export const setPageInfo = async(info) => {
         ...info,
     });
     localStorage.removeItem("page");
+}
+
+export const getThemes = async () => {               
+    const themes = await getDocs(themeCollection); 
+    let themeInfo = [];                                        
+    themes.forEach((doc) => {                        
+        themeInfo.push({...doc.data()}); 
+    })                                                    
+    return themeInfo;                                          
+}                                                         
+
+export const setTheme = async(info, type) => {
+    await setDoc(doc(db, "theme", type), {
+        ...info,
+    });
 }
 
 export const getSocials = async () => {                 
