@@ -917,7 +917,6 @@
                                             <v-color-picker
                                                 v-model="currentTheme[t]"
                                                 mode="hexa"
-                                                hide-inputs
                                             >
                                             </v-color-picker>
                                         </v-menu>
