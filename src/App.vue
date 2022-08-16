@@ -1,3 +1,11 @@
+<style>
+/*.v-application {*/
+    /*font-family: Times !important;*/
+    /*.title {*/
+        /*font-family: Times !important;*/
+    /*}*/
+/*}*/
+</style>
 <template>
   <v-app :style="'background-color: '+$vuetify.theme.themes[theme].background">
     <v-app-bar app :height="$vuetify.breakpoint.smAndDown ? '160%' : '200%'" dense color="secondary"
@@ -158,7 +166,7 @@ export default {
             this.page = 4;
             break;
     }
-    if (JSON.parse(localStorage.getItem("themes")).length) {
+    if (JSON.parse(localStorage.getItem("themes"))) {
         let themes = JSON.parse(localStorage.getItem("themes"));
         this.$vuetify.theme.dark = themes[0].chosen;
         let keys = Object.keys(themes[0]);
