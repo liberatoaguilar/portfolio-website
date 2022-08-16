@@ -915,6 +915,7 @@
                                                 </v-text-field>
                                             </template>
                                             <v-color-picker
+                                                hide-mode-switch
                                                 v-model="currentTheme[t]"
                                                 mode="hexa"
                                             >
