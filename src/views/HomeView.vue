@@ -144,7 +144,8 @@
                     id="slide"
                     style="z-index: 10"
                 >
-                    <projectView :project="projects[i%projects.length]" style="height: 100%"
+                    <projectView :project="projects[i%projects.length]"
+                        style="z-index: 10; max-width: 260px"
                         :class="beforeLoadClass"
                     ></projectView>
                 </v-col>
