@@ -5,7 +5,6 @@
     var(--v-background-base) 100%);                  
     background-size: cover;
     z-index: 11;
-    width: 73%;
     transform: translateX(-2px);
     position: absolute;
     pointer-events: none;
@@ -136,7 +135,7 @@
                 </v-col>
             </v-row>
             <v-row justify="center" style="margin-left: 13%; margin-right: 13%"
-            class="flex-nowrap overflow-hidden">
+            class="flex-nowrap overflow-hidden" id="featuredRow">
                 <div id="gradient" :style="'height: '+gradientHeight+'px'"
                 :class="beforeLoadClass"></div>                           
                 <v-col cols="auto" v-for="i in (projects.length)*3"
@@ -267,6 +266,12 @@ export default {
     },
 
     methods: {
+        changeWidth() {
+            let gradient = document.getElementById("gradient");
+            let featuredRow = document.getElementById("featuredRow");
+            let gradientWidth = featuredRow.clientWidth;
+            gradient.style.width = String(gradientWidth+20)+'px';
+        },
         adminClick() {
             const auth = getAuth();
             onAuthStateChanged(auth, (user) => {
@@ -350,6 +355,10 @@ export default {
             }                                              
         `;
         document.body.appendChild(anim);
+
+        this.changeWidth();
+
+        window.addEventListener('resize', this.changeWidth);
 
         let homeInfo = await getPageInfo();
         localStorage.setItem("pageInfo",JSON.stringify(homeInfo[0]));
