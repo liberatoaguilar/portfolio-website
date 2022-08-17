@@ -142,10 +142,9 @@
                     :key="i"
                     class="animateSlide"
                     id="slide"
-                    style="z-index: 10"
+                    style="z-index: 10; max-width: 260px"
                 >
-                    <projectView :project="projects[i%projects.length]"
-                        style="z-index: 10; max-width: 260px"
+                    <projectView :project="projects[i%projects.length]" style="height: 100%"
                         :class="beforeLoadClass"
                     ></projectView>
                 </v-col>
