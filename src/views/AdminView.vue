@@ -271,7 +271,7 @@
             max-width="168"
             min-width="168"
         >
-            <b>Uploading Picture</b>
+            <b>Uploading</b>
         </v-snackbar>
 
         
@@ -1151,7 +1151,7 @@ export default {
                                 this.showAddAboutPicture = true;
                             } else {
                                 this.uploadingSnackbar = false;
-                                this.snackbarErrorMsg = "Duplicate Picture";
+                                this.snackbarErrorMsg = "Duplicate";
                                 this.snackbar = true;
                                 this.showAddAboutPicture = true;
                             }
@@ -1190,7 +1190,7 @@ export default {
                                 this.showAddAboutPicture = true;
                             } else {
                                 this.snackbar = true;
-                                this.snackbarErrorMsg = "Duplicate Picture";
+                                this.snackbarErrorMsg = "Duplicate";
                                 this.showAddAboutPicture = true;
                             }
                             break;
@@ -1203,7 +1203,7 @@ export default {
                                 this.showAddAboutPicture = true;
                             } else {
                                 this.uploadingSnackbar = false;
-                                this.snackbarErrorMsg = "Duplicate Picture";
+                                this.snackbarErrorMsg = "Duplicate";
                                 this.snackbar = true;
                                 this.showAddAboutPicture = true;
                             }
@@ -1526,7 +1526,7 @@ export default {
                             this.showAddPicture = true;
                         } else {
                             this.uploadingSnackbar = false;
-                            this.snackbarErrorMsg = "Duplicate Picture";
+                            this.snackbarErrorMsg = "Duplicate";
                             this.showAddPicture = true;
                             this.snackbar = true;
                         }
@@ -1547,7 +1547,7 @@ export default {
                             this.showAddPicture = true;
                         } else {
                             this.snackbar = true;
-                            this.snackbarErrorMsg = "Duplicate Picture";
+                            this.snackbarErrorMsg = "Duplicate";
                             this.showAddPicture = true;
                         }
                     });
